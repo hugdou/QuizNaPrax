@@ -25,6 +25,15 @@ body {
     color: #00eaff;
     font-size: 18px;
 }
+.right-answer {
+    color: #00ff88;
+    font-weight: bold;
+}
+
+.wrong-answer {
+    color: #ff4c4c;
+    font-weight: bold;
+}
 
 label {
     display: block;

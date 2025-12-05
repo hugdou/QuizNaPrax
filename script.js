@@ -3,6 +3,8 @@ const url = "https://opentdb.com/api.php?amount=10&category=15&difficulty=easy";
 let allQuestions = [];
 let questionsDiv = document.getElementById("questions");
 
+// Sebo pridam ti poznamky co treba zmenit
+
 function shuffle(arr) {
     return arr.sort(function () {
         return Math.random() - 0.5;
@@ -21,7 +23,7 @@ function generateQuestions() {
 
             let allHtml = "";
 
-            // Go through all 10 questions
+            // skus zjednodusit resp. odstranit for loopy
             for (let i = 0; i < allQuestions.length; i++) {
                 let q = allQuestions[i];
 
@@ -31,8 +33,6 @@ function generateQuestions() {
                 for (let j = 0; j < q.incorrect_answers.length; j++) {
                     answers.push(q.incorrect_answers[j]);
                 }
-
-                // Shuffle answers
                 shuffle(answers);
                 let answerHtml = "";
                 for (let a = 0; a < answers.length; a++) {
@@ -48,7 +48,7 @@ function generateQuestions() {
                     answerHtml +
                     "</div>";
             }
-
+                // toto mozes dat do html
             allHtml += "<button id='checkBtn'>Check Answers</button>";
             allHtml += "<p id='scoreText'></p>";
 
@@ -61,26 +61,20 @@ function checkAnswers() {
     let score = 0;
     for (let i = 0; i < allQuestions.length; i++) {
         let q = allQuestions[i];
-        let questionBox = document.querySelector(".question[data-id='" + i + "']");
+        
         let picked = document.querySelector("input[name='q" + i + "']:checked");
-
+        let correct = document.querySelector("input[name='q" + i + "'][value='" + q.correct_answer + "']");
         if (picked == null) {
             continue; 
         }
-
         if (picked.value === q.correct_answer) {
-            picked.parentNode.style.color = "green";
             score++;
+            picked.parentElement.classList.add('right-answer'); 
         } else {
-            picked.parentNode.style.color = "red";
-            let labels = questionBox.getElementsByTagName("label");
-            for (let x = 0; x < labels.length; x++) {
-                if (labels[x].textContent.indexOf(q.correct_answer) !== -1) {
-                    labels[x].style.color = "green";
-                }
-            }
+            picked.parentElement.classList.add('wrong-answer');
+            correct.parentElement.classList.add('right-answer'); 
         }
-    }
+    } 
 
     document.getElementById("scoreText").innerHTML =
         "Score: " + score + " / " + allQuestions.length;
