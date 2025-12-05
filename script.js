@@ -4,6 +4,7 @@ let allQuestions = [];
 let questionsDiv = document.getElementById("questions");
 
 // Sebo pridam ti poznamky co treba zmenit
+// Tie veci robene AIkom musis prerobit lebo Ivino
 
 function shuffle(arr) {
     return arr.sort(function () {
